@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import mockRecipes from '../data.json'; 
-
-// Helper function to correctly format the public image URL
-const getImageUrl = (imagePath) => {
-    // Removes the "public/" prefix
-    return imagePath.replace('public/', '/');
-};
+import mockRecipes from '../data.json'; // Adjust the path if necessary
 
 const RecipeDetail = () => {
   const { id } = useParams(); 
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
+    // Convert the string ID from the URL params to an integer for matching
     const foundRecipe = mockRecipes.find(r => r.id === parseInt(id));
     setRecipe(foundRecipe);
   }, [id]); 
@@ -24,9 +19,10 @@ const RecipeDetail = () => {
   return (
     <div className="container mx-auto p-4 md:p-8">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+        {/* The image should now display correctly using the reliable URL */}
         <img 
             className="w-full h-64 object-cover" 
-            src={getImageUrl(recipe.image)} 
+            src={recipe.image} 
             alt={recipe.title} 
         />
         
